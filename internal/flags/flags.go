@@ -78,7 +78,7 @@ func (p Parsed) KubescapeArgs() []string {
 
 // Parse parses the argv following the "scan" subcommand.
 //
-// We use pflag.ContinueOnError + ParseErrorsWhitelist.UnknownFlags so unknown flags
+// We use pflag.ContinueOnError + ParseErrorsAllowlist.UnknownFlags so unknown flags
 // are not consumed by our FlagSet — they fall through to the passthrough collector.
 // This keeps the plugin's flag table small (just the helm-style ones) without
 // breaking any kubescape-native flag the plugin hasn't been taught about yet.
@@ -87,7 +87,7 @@ func Parse(argv []string) (Parsed, error) {
 	var namespace string
 
 	fs := pflag.NewFlagSet("helm-kubescape scan", pflag.ContinueOnError)
-	fs.ParseErrorsWhitelist.UnknownFlags = true
+	fs.ParseErrorsAllowlist.UnknownFlags = true
 	// Suppress pflag's default usage-on-error: we render our own help.
 	fs.Usage = func() {}
 

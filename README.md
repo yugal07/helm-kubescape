@@ -18,7 +18,7 @@ The plugin shells out to a locally installed `kubescape` CLI for the scan itself
 
 ## Usage
 
-```
+```text
 helm kubescape scan <chart> [helm flags] [kubescape flags]
 helm kubescape version
 helm kubescape help

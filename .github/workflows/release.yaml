@@ -32,7 +32,8 @@ jobs:
           archive="helm-kubescape-${tag}.tar.gz"
           tar --exclude='.git' --exclude='.github' --exclude='dist' \
               -czf "${archive}" \
-              plugin.yaml install-binary.sh scripts test Makefile \
+              plugin.yaml install-binary.sh Makefile \
+              go.mod go.sum cmd internal \
               README.md LICENSE
           sha256sum "${archive}" | tee "${archive}.sha256"
 

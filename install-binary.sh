@@ -54,8 +54,9 @@ fi
 
 # Capability probe: warn if the installed kubescape predates the Helm-values flags.
 if ! "${KUBESCAPE_BIN}" scan --help 2>/dev/null | grep -qE -- '--values|--set'; then
+  KUBESCAPE_VERSION="$("${KUBESCAPE_BIN}" version 2>/dev/null | head -n1 || true)"
   cat >&2 <<EOF
-helm-kubescape: warning - the installed kubescape ($(${KUBESCAPE_BIN} version 2>/dev/null | head -n1)) does not appear to support the Helm value-override flags (--values / --set).
+helm-kubescape: warning - the installed kubescape (${KUBESCAPE_VERSION}) does not appear to support the Helm value-override flags (--values / --set).
 
 Upgrade kubescape to a release that includes the Helm-values-overrides change before using this plugin.
 EOF

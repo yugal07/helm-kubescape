@@ -16,6 +16,7 @@
 package main
 
 import (
+	"context"
 	"errors"
 	"fmt"
 	"os"
@@ -81,7 +82,7 @@ func runScan(argv []string) int {
 	}
 	parsed.Chart = res.LocalPath
 
-	cmd := exec.Command(kubescape, append([]string{"scan"}, parsed.KubescapeArgs()...)...)
+	cmd := exec.CommandContext(context.Background(), kubescape, append([]string{"scan"}, parsed.KubescapeArgs()...)...)
 	cmd.Stdin = os.Stdin
 	cmd.Stdout = os.Stdout
 	cmd.Stderr = os.Stderr
@@ -110,7 +111,7 @@ func printVersion() {
 	fmt.Printf("%s version: %s\n", pluginName, pluginVersion)
 	if path, err := exec.LookPath(kubescapeBin()); err == nil {
 		// Best-effort: surface the kubescape version too so users can correlate.
-		out, err := exec.Command(path, "version").Output()
+		out, err := exec.CommandContext(context.Background(), path, "version").Output()
 		if err == nil {
 			fmt.Print(string(out))
 			return
