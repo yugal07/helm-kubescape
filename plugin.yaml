@@ -10,10 +10,6 @@ description: |
   `kubescape` CLI; per-template source mapping in findings is preserved by
   Kubescape's own renderer.
 
-# Default command (Linux/macOS). Helm execs plugin commands directly without a
-# shell, so we point at the built binary itself.
-command: "$HELM_PLUGIN_DIR/bin/helm-kubescape"
-
 # Per-OS overrides. On Windows the binary has a .exe suffix; the install hook
 # is a PowerShell script. platformCommand / platformHooks ensure a stock
 # `helm plugin install` works on Windows without users needing bash.
@@ -24,10 +20,6 @@ platformCommand:
     command: "$HELM_PLUGIN_DIR/bin/helm-kubescape"
   - os: darwin
     command: "$HELM_PLUGIN_DIR/bin/helm-kubescape"
-
-hooks:
-  install: "$HELM_PLUGIN_DIR/install-binary.sh"
-  update:  "$HELM_PLUGIN_DIR/install-binary.sh"
 
 platformHooks:
   install:

@@ -6,6 +6,11 @@ The plugin is a Go binary that uses Helm's own SDK for chart resolution (so `oci
 
 > **Status:** experimental — depends on the Helm-values-overrides change in `kubescape/kubescape` ([#1883](https://github.com/kubescape/kubescape/issues/1883) prerequisite). Build kubescape from `master` (or any release that includes the change) before installing this plugin.
 
+## Requirements
+
+- **Helm ≥ 3.18.10.** The plugin manifest uses `platformHooks`, which was introduced in Helm v3.18.10; older Helm 3.x versions reject the field during `plugin.yaml` unmarshal and refuse to install the plugin. Helm 4 moves `platformHooks` under `runtimeConfig`, so a v4-compatible release of this plugin will ship a separate manifest.
+- A local Go toolchain (the install hook builds from source) and the [`kubescape` CLI](https://kubescape.io/docs/install-cli/) on `PATH`.
+
 ## Install
 
 ```bash
