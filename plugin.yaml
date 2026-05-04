@@ -30,12 +30,19 @@ hooks:
   update:  "$HELM_PLUGIN_DIR/install-binary.sh"
 
 platformHooks:
-  windows:
-    install: "powershell -NoProfile -ExecutionPolicy Bypass -File $HELM_PLUGIN_DIR\\install-binary.ps1"
-    update:  "powershell -NoProfile -ExecutionPolicy Bypass -File $HELM_PLUGIN_DIR\\install-binary.ps1"
-  linux:
-    install: "$HELM_PLUGIN_DIR/install-binary.sh"
-    update:  "$HELM_PLUGIN_DIR/install-binary.sh"
-  darwin:
-    install: "$HELM_PLUGIN_DIR/install-binary.sh"
-    update:  "$HELM_PLUGIN_DIR/install-binary.sh"
+  install:
+    - os: windows
+      command: "powershell"
+      args: ["-NoProfile", "-ExecutionPolicy", "Bypass", "-File", "$HELM_PLUGIN_DIR\\install-binary.ps1"]
+    - os: linux
+      command: "$HELM_PLUGIN_DIR/install-binary.sh"
+    - os: darwin
+      command: "$HELM_PLUGIN_DIR/install-binary.sh"
+  update:
+    - os: windows
+      command: "powershell"
+      args: ["-NoProfile", "-ExecutionPolicy", "Bypass", "-File", "$HELM_PLUGIN_DIR\\install-binary.ps1"]
+    - os: linux
+      command: "$HELM_PLUGIN_DIR/install-binary.sh"
+    - os: darwin
+      command: "$HELM_PLUGIN_DIR/install-binary.sh"
